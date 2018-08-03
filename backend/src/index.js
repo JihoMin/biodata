@@ -15,7 +15,19 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 // enable all CORS req
-aoo.use(cors());
+app.use(cors());
 
 // log HTTP req
 app.use(morgan('combined'));
+
+// ... other require statements
+const routes = require('./routes');
+
+// express app definition and middleware config
+
+app.use('/micro-posts', routes);
+
+// start server
+app.listen(8081, () => {
+    console.log('listning on port 8081');
+});
