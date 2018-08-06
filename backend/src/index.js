@@ -28,6 +28,9 @@ const routes = require('./routes');
 app.use('/micro-posts', routes);
 
 // start server
+/*
 app.listen(8081, () => {
     console.log('listning on port 8081');
 });
+*/
+module.exports = app;
