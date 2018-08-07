@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const url = 'http://localhost:8081/micro-posts/'
+const url = process.env.BACKEND_URL
+console.log('url: ', url)
 
 class MicroPostsService {
   static getMicroPosts () {
