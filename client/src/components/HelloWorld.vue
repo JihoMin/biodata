@@ -1,6 +1,6 @@
 <template>
   <div class = "container">
-    <h1>Latest Micro-Posts 수정수정수정</h1>
+    <h1>Latest Micro-Posts</h1>
     <p class="error" v-if="error">{{error}}</p>
     <div class="micro-posts-container">
       <div class="micro-post"
