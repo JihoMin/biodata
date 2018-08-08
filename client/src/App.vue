@@ -33,7 +33,12 @@
             <md-icon>move_to_inbox</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
-
+          <md-list-item>
+            <md-icon>move_to_inbox</md-icon>
+            <span class="md-list-item-text">
+              <router-link to="/Login">Login</router-link>
+            </span>
+          </md-list-item>
           <md-list-item>
             <md-icon>send</md-icon>
             <span class="md-list-item-text" >
