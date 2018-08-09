@@ -5,6 +5,10 @@ import HelloWorld from '@/components/HelloWorld'
 import RegularCards from '@/components/RegularCards'
 import Search from '@/components/Search'
 
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
+
 Vue.use(Router)
 
 export default new Router({
