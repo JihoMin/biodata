@@ -35,7 +35,7 @@
       </md-card>
       <md-card md-with-hover id="visualElement">
         <img src="https://cdn0.iconfinder.com/data/icons/data-visualization-color-1/64/line-graph-data-visualisation-512.png" alt="Skyscraper">
-      </md-card>      
+      </md-card>
     </div>
     <h2 align="left">- 데이터 검색</h2>
     <md-table>
