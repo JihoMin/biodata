@@ -30,27 +30,28 @@
       <md-app-drawer md-permanent="clipped" md-persistent="full">
         <md-list>
           <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
+            <md-icon>home</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
           <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
+            <md-icon>sentiment_satisfied_alt</md-icon>
             <span class="md-list-item-text">
               <router-link to="/Login">Login</router-link>
             </span>
           </md-list-item>
           <md-list-item>
-            <md-icon>send</md-icon>
+            <md-icon>search</md-icon>
             <span class="md-list-item-text" >
               <router-link to="/search">데이터 조회하기</router-link>
             </span>
           </md-list-item>
 
           <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">데이터 입력하기</span>
+            <md-icon>create</md-icon>
+            <span class="md-list-item-text">
+              <router-link to="/Upload">데이터 입력하기</router-link>
+            </span>
           </md-list-item>
-
           <md-list-item>
             <md-icon>error</md-icon>
             <span class="md-list-item-text">계정 관리</span>
@@ -83,7 +84,8 @@ export default {
   font-size: 20px;
 }
 .md-app {
-  height: 800px;
+  min-height: 800px;
+  height: 100%;
 }
 .md-drawer {
   width: 230px;
