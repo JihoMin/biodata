@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import HelloWorld from '@/components/HelloWorld'
 import RegularCards from '@/components/RegularCards'
 import Search from '@/components/Search'
+import Upload from '@/components/Upload'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/Login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/Upload',
+      name: 'Upload',
+      component: Upload
     }
 
   ]
