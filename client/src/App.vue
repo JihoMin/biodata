@@ -88,7 +88,7 @@ export default {
   height: 100%;
 }
 .md-drawer {
-  width: 230px;
+  width: 200px;
   max-width: calc(100vw - 125px);
 }
 </style>
