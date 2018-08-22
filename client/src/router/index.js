@@ -5,6 +5,7 @@ import HelloWorld from '@/components/HelloWorld'
 import RegularCards from '@/components/RegularCards'
 import Search from '@/components/Search'
 import Upload from '@/components/Upload'
+import singleFile from '@/components/SingleFile'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/Upload',
       name: 'Upload',
       component: Upload
+    },
+    {
+      path: '/singleFile',
+      name: 'singleFile',
+      component: singleFile
     }
 
   ]

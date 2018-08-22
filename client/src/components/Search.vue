@@ -38,99 +38,59 @@
       </md-card>
     </div>
     <h2 align="left">- 데이터 검색</h2>
-    <md-table>
-      <md-table-row>
-        <md-table-head md-numeric>ID</md-table-head>
-        <md-table-head>Name</md-table-head>
-        <md-table-head>Email</md-table-head>
-        <md-table-head>Gender</md-table-head>
-        <md-table-head>Job Title</md-table-head>
-      </md-table-row>
-
-      <md-table-row>
-        <md-table-cell md-numeric>1</md-table-cell>
-        <md-table-cell>Shawna Dubbin</md-table-cell>
-        <md-table-cell>sdubbin0@geocities.com</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Assistant Media Planner</md-table-cell>
-      </md-table-row>
-
-      <md-table-row>
-        <md-table-cell md-numeric>2</md-table-cell>
-        <md-table-cell>Odette Demageard</md-table-cell>
-        <md-table-cell>odemageard1@spotify.com</md-table-cell>
-        <md-table-cell>Female</md-table-cell>
-        <md-table-cell>Account Coordinator</md-table-cell>
-      </md-table-row>
-
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-      <md-table-row>
-        <md-table-cell md-numeric>3</md-table-cell>
-        <md-table-cell>Vera Taleworth</md-table-cell>
-        <md-table-cell>vtaleworth2@google.ca</md-table-cell>
-        <md-table-cell>Male</md-table-cell>
-        <md-table-cell>Community Outreach Specialist</md-table-cell>
-      </md-table-row>
-    </md-table>
+    <v-data-table 
+      :headers="headers"
+      :items="data"
+      hide-actions
+      class="elevator-1"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.NIHID }}</td>
+        <td class="text-xs-right">{{ props.item.SEX }}</td>
+        <td class="text-xs-right">{{ props.item.AGE }}</td>
+        <td class="text-xs-right">{{ props.item.JOB }}</td>
+        <td class="text-xs-right">{{ props.item.HEIGHT }}</td>
+        <td class="text-xs-right">{{ props.item.WEIGHT }}</td>
+        <td class="text-xs-right">{{ props.item.BMI }}</td>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
+import { getData } from '../file-upload.service'
 export default {
   name: 'Search',
   data () {
     return {
       microPosts: [],
-      error: ''
+      headers: [
+        {
+          text: 'NIHID',
+          align: 'left',
+          sortable: false,
+          value: 'NIHID'
+        },
+        { text: 'SEX', value: 'SEX' },
+        { text: 'AGE', value: 'AGE' },
+        { text: 'JOB', value: 'JOB' },
+        { text: 'HEIGHT (cm)', value: 'HEIGHT'},
+        { text: 'WEIGHT (kg)', value: 'WEIGHT'},
+        { text: 'BMI', value: 'BMI'}
+      ],
+      data: [],
+      errors: []
     }
+  },
+  created () {
+    getData()
+      .then(res => {
+        this.data = res.data
+        console.log(this.data)
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
   }
 }
 </script>

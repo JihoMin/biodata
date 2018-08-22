@@ -45,11 +45,16 @@
               <router-link to="/search">데이터 조회하기</router-link>
             </span>
           </md-list-item>
-
           <md-list-item>
             <md-icon>create</md-icon>
             <span class="md-list-item-text">
               <router-link to="/Upload">데이터 입력하기</router-link>
+            </span>
+          </md-list-item>
+          <md-list-item>
+            <md-icon>create</md-icon>
+            <span class="md-list-item-text">
+              <router-link to="/singleFile">데이터 입력하기2</router-link>
             </span>
           </md-list-item>
           <md-list-item>

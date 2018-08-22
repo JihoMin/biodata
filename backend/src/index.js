@@ -25,7 +25,7 @@ const routes = require('./routes');
 
 // express app definition and middleware config
 
-app.use('/micro-posts', routes);
+app.use('/', routes);
 
 // start server
 /*

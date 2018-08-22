@@ -4,7 +4,7 @@
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
       <h1>데이터 입력하기</h1>
       <div class="dropbox">
-        <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*" class="input-file">
+        <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*, .csv, .xls, .xlsx" class="input-file">
           <p v-if="isInitial">
             입력할 데이터 파일을 선택해주세요
           </p>
@@ -13,11 +13,26 @@
           </p>
       </div>
     </form>
+    <!--SUCESS-->
+    <div v-if="isSuccess">
+      <h2> Uploaded {{ uploadedFiles.length }} files successfully.</h2>
+      <p>
+        <a href="javascript:void(0)" @click="reset()">Upload again</a>
+      </p>
+    </div>
+    <!--FAILED-->
+    <div v-if="isFailed">
+      <h2>Uploaded failed.</h2>
+      <p>
+        <a href="javascript:void(0)" @click="reset()">Try again</a>
+      </p>
+      <pre>{{ uploadError }}</pre>
+    </div>
   </div>
 </template>
 
 <script>
-import { upload } from '../file-upload.service'
+import { upload2 } from '../file-upload.service'
 
 const STATUS_INITIAL = 0
 const STATUS_SAVING = 1
@@ -31,7 +46,7 @@ export default {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: 'photos'
+      uploadFieldName: 'file'
     }
   },
   computed: {
@@ -59,7 +74,7 @@ export default {
       // upload data to the server
       this.currentStatus = STATUS_SAVING
 
-      upload(formData)
+      upload2(formData)
         .then(x => {
           this.uploadedFiles = [].concat(x)
           this.currentStatus = STATUS_SUCCESS
@@ -79,7 +94,7 @@ export default {
       Array
         .from(Array(fileList.length).keys())
         .map(x => {
-          formData.append(fieldName, fileList[x], fileList[x].name)
+          formData.append(fieldName, fileList[x])
         })
 
       // save it

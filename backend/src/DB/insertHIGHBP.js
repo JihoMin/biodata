@@ -1,6 +1,7 @@
 const mysql = require('mysql2/promise');
 const fs = require('fs');
 const csv = require('fast-csv');
+const path = require('path');
 
 const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
 
@@ -8,7 +9,7 @@ var pool = mysql.createPool({
     host: MYSQL_URL,
     user: MYSQL_ID,
     password: MYSQL_PWD,
-    database: "test"
+    database: "blab"
 });
 
 const type =[
@@ -67,64 +68,71 @@ const createSchema = async (query) => {
         try {
             connection.query(query);
         } catch(err) {
-            console.log(err);
+            //console.log(err);
         }
     } catch(err) {
-        console.log(err);
+        //console.log(err);
     }
 }
 const insertData2 = async (fields, data) => {
     try {
         const connection = await pool.getConnection(async conn => conn);
         try {
-            console.log(fields.toString())
-            query = 'INSERT INTO test('+fields.toString()+')'+' VALUES ?'+' ON DUPLICATE KEY UPDATE SEX=VALUES(SEX)';
+            //console.log(fields.toString())
+            query = 'INSERT INTO blab('+fields.toString()+')'+' VALUES ?'+' ON DUPLICATE KEY UPDATE SEX=VALUES(SEX)';
             connection.query(query, [data]);
         } catch(err) {
-            console.log(err);
+            //console.log(err);
         }
     } catch(err) {
-        console.log(err);
+        //console.log(err);
     }
 }
 
-var stream = fs.createReadStream("./HIGHBP.csv");
-var alldata = []
-var allInsert = []
-var csvStream = csv()
-    .on("data", function(data){
-        //console.log(data);
-        alldata.push(data);
-        //console.log(alldata);
-    })
-    .on("end", function () {
-        console.log(alldata.length);
-        
-        var createQuery = 
-        'create table if not exists test( '+
-        alldata[2][0]+' '+alldata[1][0]+' primary key,';
+const openCSV = function (stream) {
+    //var stream = fs.createReadStream(file);
+    //console.log(stream);
+    var alldata = []
+    var allInsert = []
+    var csvStream = csv()
+        .on("data", function(data){
+            //console.log(data);
+            alldata.push(data);
+            //console.log(alldata);
+        })
+        .on("end", function () {
+            console.log(alldata.length);
+            
+            var createQuery = 
+            'create table if not exists blab( '+
+            alldata[2][0]+' '+alldata[1][0]+' primary key,';
 
-        for(var i = 1; i<alldata[0].length; i++){
-            createQuery = createQuery + ' '+ alldata[2][i]+' '+ alldata[1][i] + ' ,';
-        }
-        createQuery = createQuery.substr(0, createQuery.length-1)+" )";
-        createSchema(createQuery)
-        .then( () => {
-            for(var i = 3; i<alldata.length; i++){
-                var row = [];
-                row.push(alldata[i][0]);
-                createType(type, row, alldata[i]).then((parsed) => {
-                    allInsert.push(parsed);
-                });
-                //console.log(setValues);
+            for(var i = 1; i<alldata[0].length; i++){
+                createQuery = createQuery + ' '+ alldata[2][i]+' '+ alldata[1][i] + ' ,';
             }
-            //console.log(allInsert);
+            createQuery = createQuery.substr(0, createQuery.length-1)+" )";
+            createSchema(createQuery)
+            .then( () => {
+                for(var i = 3; i<alldata.length; i++){
+                    var row = [];
+                    row.push(alldata[i][0]);
+                    createType(type, row, alldata[i]).then((parsed) => {
+                        allInsert.push(parsed);
+                    });
+                    //console.log(setValues);
+                }
+                //console.log(allInsert);
+            })
+            .then( () => {
+                insertData2(alldata[2], allInsert);
+            })
+            
+            //console.log("done");
         })
-        .then( () => {
-            insertData2(alldata[2], allInsert);
-        })
-        
-        console.log("done");
-    })
-stream.pipe(csvStream);
+    stream.pipe(csvStream);
+}
 //console.log(alldata);
+module.exports = {
+    openCSV: openCSV,
+    type: type
+};
