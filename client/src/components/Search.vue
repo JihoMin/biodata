@@ -38,7 +38,7 @@
       </md-card>
     </div>
     <h2 align="left">- 데이터 검색</h2>
-    <v-data-table 
+    <v-data-table
       :headers="headers"
       :items="data"
       hide-actions
@@ -74,9 +74,9 @@ export default {
         { text: 'SEX', value: 'SEX' },
         { text: 'AGE', value: 'AGE' },
         { text: 'JOB', value: 'JOB' },
-        { text: 'HEIGHT (cm)', value: 'HEIGHT'},
-        { text: 'WEIGHT (kg)', value: 'WEIGHT'},
-        { text: 'BMI', value: 'BMI'}
+        { text: 'HEIGHT (cm)', value: 'HEIGHT' },
+        { text: 'WEIGHT (kg)', value: 'WEIGHT' },
+        { text: 'BMI', value: 'BMI' }
       ],
       data: [],
       errors: []
