@@ -5,12 +5,12 @@
       <h1>데이터 입력하기</h1>
       <div class="dropbox">
         <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*, .csv, .xls, .xlsx" class="input-file">
-          <p v-if="isInitial">
-            입력할 데이터 파일을 선택해주세요
-          </p>
-          <p v-if="isSaving">
-            Uploading {{ fileCount }} files...
-          </p>
+        <p class="status" v-if="isInitial">
+          입력할 데이터 파일을 선택해주세요
+        </p>
+        <p class="status" v-if="isSaving">
+          Uploading {{ fileCount }} files...
+        </p>
       </div>
     </form>
     <!--SUCESS-->
@@ -75,7 +75,7 @@ export default {
       this.currentStatus = STATUS_SAVING
 
       upload2(formData)
-        .then(x => {
+        .then((x) => {
           this.uploadedFiles = [].concat(x)
           this.currentStatus = STATUS_SUCCESS
         })
@@ -109,31 +109,37 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-  .dropbox {
-    outline: 2px dashed grey; /* the dash box */
-    outline-offset: -10px;
-    background: lightcyan;
-    color: dimgray;
-    padding: 10px 10px;
-    min-height: 200px; /* minimum height */
-    position: relative;
-    cursor: pointer;
-  }
+  // .dropbox {
+  //   width: 100%;
+  //   outline: 2px dashed grey; /* the dash box */
+  //   outline-offset: -10px;
+  //   background: lightcyan;
+  //   color: dimgray;
+  //   padding: 10px 10px;
+  //   height: 200px; /* minimum height */
+  //   position: relative;
+  //   cursor: pointer;
+  // }
 
-  .input-file {
-    box-sizing: border-box;
-    opacity: 0; /* invisible but it's there! */
-    width: auto;
-    height: 200px;
-    position: absolute;
-    cursor: pointer;
-  }
+  // .input-file {
+  //   opacity: 0; /* invisible but it's there! */
+  //   width: 100%;
+  //   float:left;
+  //   box-sizing: border-box;
+  //   height: 200px;
+  //   padding-left: 0px;
+  //   margin-left: 0px;
+  //   cursor: pointer;
+  //   position: relative;
+  // }
 
   .dropbox:hover {
     background: lightblue; /* when mouse over to the drop zone, change color */
   }
 
   .dropbox p {
+    position: absolute;
+    left: 30%;
     font-size: 1.2em;
     text-align: center;
     padding: 50px 0;

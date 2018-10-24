@@ -42,19 +42,19 @@
           <md-list-item>
             <md-icon>search</md-icon>
             <span class="md-list-item-text" >
-              <router-link to="/search">데이터 조회하기</router-link>
+              <router-link to="/search">데이터 조회하기(HIGBP)</router-link>
+            </span>
+          </md-list-item>
+          <md-list-item>
+            <md-icon>search</md-icon>
+            <span class="md-list-item-text" >
+              <router-link to="/searchSNU">데이터 조회하기(병원)</router-link>
             </span>
           </md-list-item>
           <md-list-item>
             <md-icon>create</md-icon>
             <span class="md-list-item-text">
               <router-link to="/Upload">데이터 입력하기</router-link>
-            </span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>create</md-icon>
-            <span class="md-list-item-text">
-              <router-link to="/singleFile">데이터 입력하기2</router-link>
             </span>
           </md-list-item>
           <md-list-item>
@@ -72,7 +72,26 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      isL: false
+    }
+  },
+  computed: {
+    isLogin () {
+      if (this.isL === true) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  mathods: {
+    setToTrue () {
+      this.isL = true
+    }
+  }
 }
 </script>
 
@@ -93,7 +112,7 @@ export default {
   height: 100%;
 }
 .md-drawer {
-  width: 200px;
+  width: 20%;
   max-width: calc(100vw - 125px);
 }
 </style>

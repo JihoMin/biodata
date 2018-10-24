@@ -2,6 +2,7 @@ const mysql = require('mysql2/promise');
 const fs = require('fs');
 const csv = require('fast-csv');
 
+// setting MYSQL variables using environment variables
 const { MYSQL_URL, MYSQL_ID, MYSQL_PWD } = process.env;
 
 var pool = mysql.createPool({
@@ -11,6 +12,7 @@ var pool = mysql.createPool({
     database: "test"
 });
 
+// csv파일 각각 column에 대한 타입을 정의
 const type =[
     [1, 0],
     [22,1],

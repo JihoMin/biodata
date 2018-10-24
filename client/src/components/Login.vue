@@ -1,35 +1,4 @@
 <template>
-  <!-- <div id="login">
-    <h1>Welcome!</h1>
-    <input type="text" name="username"  placeholder="Username"/>
-    <br />
-    <input type="password" name="password"  placeholder="Password"/>
-    <br />
-    <div class="form-block form__actions">
-                <router-link to="/password-reset">Lost your password?</router-link>
-                <button class="button button--green form__submit">Login</button>
-            </div>
-  </div> -->
-  <!-- <div class = "container">
-    <div class ="panel panel-primary">
-      <div class ="panel-heading">
-        <h3 class = "panel-title">Welcome</h3>
-      </div>
-      <div class="panel-body">
-        <form>
-          <div class ="form-group">
-            <label for="email" class="control-label sr-only"></label>
-            <input type="email" class="form-control" id="email"  placeholder="Email">
-          </div>
-          <div class ="form-group">
-            <label for="password" class="control-label sr-only"></label>
-            <input type="password" class="form-control" id="password"  placeholder="Password">
-          </div>
-          <button class="btn btn-primary pull-right">Sign In</button>
-        </form>
-      </div>
-    </div>
-  </div> -->
 <div class="centered-container">
     <md-content class="md-elevation-3">
 
@@ -40,7 +9,7 @@
 
       <div class="form">
         <md-field>
-          <label>E-mail</label>
+          <label>ID</label>
           <md-input v-model="email" autofocus></md-input>
         </md-field>
 
@@ -52,7 +21,7 @@
 
       <div class="actions md-layout md-alignment-center-space-between">
         <a href="/resetpassword">Reset password</a>
-        <md-button class="md-raised md-primary" @click="auth">Log in</md-button>
+        <md-button class="md-raised md-primary" @click="reset()">Log in</md-button>
       </div>
 
       <div class="loading-overlay" v-if="loading">
@@ -66,12 +35,21 @@
 </template>
 
 <script>
+import App from '../App.vue'
+
 export default {
   name: 'Login',
   data () {
     return {
       microPosts: [],
       error: ''
+    }
+  },
+  methods: {
+    reset () {
+      console.log(App.data().isL)
+      App.data().isL = true
+      console.log(App.data().isL)
     }
   }
 }

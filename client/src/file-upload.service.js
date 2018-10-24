@@ -26,4 +26,14 @@ function getData () {
   return axios.get(url)
 }
 
-export { upload2, getData }
+function getDataSNU () {
+  const url = `${BASE_URL}SNU`
+  return axios.get(url)
+}
+
+function getSummary () {
+  const url = `${BASE_URL}summary`
+  return axios.get(url)
+}
+
+export { upload2, getData, getDataSNU, getSummary }

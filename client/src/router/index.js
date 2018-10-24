@@ -6,6 +6,7 @@ import RegularCards from '@/components/RegularCards'
 import Search from '@/components/Search'
 import Upload from '@/components/Upload'
 import singleFile from '@/components/SingleFile'
+import SearchSNU from '@/components/SearchSNU'
 
 Vue.use(Router)
 
@@ -18,8 +19,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Login',
-      component: Login
+      name: 'SearchSNU',
+      component: SearchSNU
     },
     {
       path: '/RegularCards',
@@ -30,6 +31,11 @@ export default new Router({
       path: '/Search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/SearchSNU',
+      name: 'SearchSNU',
+      component: SearchSNU
     },
     {
       path: '/Login',
