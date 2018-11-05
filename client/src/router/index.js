@@ -8,19 +8,49 @@ import Upload from '@/components/Upload'
 import singleFile from '@/components/SingleFile'
 import SearchSNU from '@/components/SearchSNU'
 
+import store from '@/vuex/store'
+
+// test login
+// import Home from '@/components/Home'
+import Me from '@/components/Me'
+import LoginT from '@/components/Login_test'
+
+const requireAuth = () => (from, to, next) => {
+  if (store.getters.getIsAuth) return next()
+  next('/login?returnPath=me')
+}
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/HelloWorld',
+      path: '/helloWorld',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      beforeEnter: requireAuth()
     },
+    // test login
     {
       path: '/',
-      name: 'SearchSNU',
-      component: SearchSNU
+      name: 'LoginT',
+      component: LoginT
+    },
+    {
+      path: '/me',
+      name: 'Me',
+      component: Me,
+      beforeEnter: requireAuth()
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/LoginT',
+      name: 'LoginT',
+      component: LoginT
     },
     {
       path: '/RegularCards',

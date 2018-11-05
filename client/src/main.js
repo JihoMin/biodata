@@ -10,8 +10,13 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
+import store from './vuex/store'
+import VeeValidate from 'vee-validate'
+
 Vue.use(VueMaterial)
 Vue.use(Vuetify)
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 
@@ -20,5 +25,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

@@ -21,21 +21,78 @@
     </div>
     <div class="md-layout" id="visualization">
       <md-card md-with-hover id="visualElement">
-        <img src="https://cdn0.iconfinder.com/data/icons/data-visualization-color-1/64/line-graph-data-visualisation-512.png" alt="Skyscraper">
+        <md-card-header>
+            <div class="md-title">BMI</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/BMI.png">
       </md-card>
       <md-card md-with-hover id="visualElement">
-        <img src="https://cdn0.iconfinder.com/data/icons/data-visualization-color-1/64/line-graph-data-visualisation-512.png" alt="Skyscraper">
+        <md-card-header>
+            <div class="md-title">DBP</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/DBP.png">
       </md-card>
       <md-card md-with-hover id="visualElement">
-        <img src="https://cdn0.iconfinder.com/data/icons/data-visualization-color-1/64/line-graph-data-visualisation-512.png" alt="Skyscraper">
+        <md-card-header>
+            <div class="md-title">GLUCOSE</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/GLUCOSE.png" alt="Skyscraper">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">HDL</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/HDL.png">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">DBP</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/SBP.png">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">TCHL</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/TCHL.png" alt="Skyscraper">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">TG</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/TG.png">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">WEIGHT</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/WEIGHT.png">
       </md-card>
     </div>
+    <br>
     <h2 align="left">- 데이터 검색</h2>
-    <v-data-table
+    <md-table v-model="data" md-sort="날짜" md-sort-order="asc" >
+      <!-- <md-table-toolbar>
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
+        </md-field>
+      </md-table-toolbar> -->
+
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
+        <md-table-cell md-label="날짜" md-sort-by="id">{{ item.날짜 }}</md-table-cell>
+        <md-table-cell md-label="고혈압" md-sort-by="name">{{ item.고혈압 }}</md-table-cell>
+        <md-table-cell md-label="당뇨" md-sort-by="email">{{ item.당뇨 }}</md-table-cell>
+        <md-table-cell md-label="당뇨병가족력" md-sort-by="gender">{{ item.당뇨병가족력 }}</md-table-cell>
+        <md-table-cell md-label="암과거력" md-sort-by="title">{{ item.암과거력 }}</md-table-cell>
+        <md-table-cell md-label="약복용력" md-sort-by="a">{{ item.약복용력 }}</md-table-cell>
+      </md-table-row>
+    </md-table>
+    <!-- <v-data-table
       :headers="headers"
       :items="data"
       hide-actions
-      class="elevator-1"
+      :dark="true"
+      class="evaluation-1"
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.바코드 }}</td>
@@ -53,12 +110,13 @@
         <td class="text-xs-right">{{ props.item.Anti_HIV }}</td>
         <td class="text-xs-right">{{ props.item.Anti_HCV }}</td>
       </template>
-    </v-data-table>
+    </v-data-table> -->
   </div>
 </template>
 
 <script>
 import { getDataSNU, getSummary } from '../file-upload.service'
+
 export default {
   name: 'SearchSNU',
   data () {
@@ -89,19 +147,33 @@ export default {
       summary: [],
       supercontrol: [],
       na: [],
-      dang: [],
-      errors: []
+      dang: []
+      // errors: []
+    }
+  },
+  methods: {
+    getData () {
+      getDataSNU()
+        .then(res => {
+          this.data = res.data
+          console.log(this.data)
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    },
+    toLower (text) {
+      return text.toString().toLowerCase()
+    },
+    searchByName (items, term) {
+      if (term) {
+        return items.filter(item => this.toLower(item.name).includes(this.toLower(term)))
+      }
+      return items
     }
   },
   created () {
-    getDataSNU()
-      .then(res => {
-        this.data = res.data
-        console.log(this.data)
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
+    this.getData()
     getSummary()
       .then(res => {
         this.summary = res.data
@@ -123,13 +195,15 @@ export default {
     font-size: 20px;
   }
   .md-card {
-    width: 400px;
+    width: 500px;
     margin: 4px;
     display: inline-block;
     vertical-align: top;
   }
   #visualElement{
-    width: 200px;
-    height: 50%;
+    width: 430px;
+  }
+  .md-field {
+    max-width: 300px;
   }
 </style>
