@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <!--UPLOAD-->
-    <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
+    <b-form-file v-model="file" :state="Boolean(file)" placeholder="Choose a file..."></b-form-file>
+    <b-form-file v-model="file" enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
       <h1>Upload images</h1>
       <div class="dropbox">
         <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*" class="input-file">
@@ -12,7 +13,7 @@
             Uploading {{ fileCount }} files...
           </p>
       </div>
-    </form>
+    </b-form-file>
   </div>
 </template>
 

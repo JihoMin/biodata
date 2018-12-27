@@ -11,9 +11,14 @@ import 'vue-material/dist/theme/default.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 import store from './vuex/store'
 import VeeValidate from 'vee-validate'
 
+Vue.use(BootstrapVue)
 Vue.use(VueMaterial)
 Vue.use(Vuetify)
 Vue.use(VeeValidate)

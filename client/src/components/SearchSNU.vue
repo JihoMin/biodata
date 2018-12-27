@@ -13,7 +13,7 @@
             <ul>
               <li>super-control:  {{supercontrol.super_control}}명</li> <br>
               <li>NAFLD(case/control):  {{na.NAFLD_case}}명 / {{na.NAFLD_control}}명</li> <br>
-              <li>내당능장애-당뇨-정상:  {{dang.내당능장애}}명 / {{dang.당뇨}}명 / {{dang.정상}}명</li>
+              <li>내당기능장애-당뇨-정상:  {{dang.내당능장애}}명 / {{dang.당뇨}}명 / {{dang.정상}}명</li>
             </ul>
           </md-card-content>
         </md-ripple>
@@ -22,21 +22,39 @@
     <div class="md-layout" id="visualization">
       <md-card md-with-hover id="visualElement">
         <md-card-header>
+            <div class="md-title">체중</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/WEIGHT.png">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
             <div class="md-title">BMI</div>
         </md-card-header>
         <img src="../assets/fwd8curvechart/BMI.png">
       </md-card>
       <md-card md-with-hover id="visualElement">
         <md-card-header>
-            <div class="md-title">DBP</div>
+            <div class="md-title">혈당</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/GLUCOSE.png" alt="Skyscraper">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">이완기 혈압</div>
         </md-card-header>
         <img src="../assets/fwd8curvechart/DBP.png">
       </md-card>
       <md-card md-with-hover id="visualElement">
         <md-card-header>
-            <div class="md-title">GLUCOSE</div>
+            <div class="md-title">수축기 혈압</div>
         </md-card-header>
-        <img src="../assets/fwd8curvechart/GLUCOSE.png" alt="Skyscraper">
+        <img src="../assets/fwd8curvechart/SBP.png">
+      </md-card>
+      <md-card md-with-hover id="visualElement">
+        <md-card-header>
+            <div class="md-title">Total Cholesterol</div>
+        </md-card-header>
+        <img src="../assets/fwd8curvechart/TCHL.png" alt="Skyscraper">
       </md-card>
       <md-card md-with-hover id="visualElement">
         <md-card-header>
@@ -46,71 +64,27 @@
       </md-card>
       <md-card md-with-hover id="visualElement">
         <md-card-header>
-            <div class="md-title">DBP</div>
-        </md-card-header>
-        <img src="../assets/fwd8curvechart/SBP.png">
-      </md-card>
-      <md-card md-with-hover id="visualElement">
-        <md-card-header>
-            <div class="md-title">TCHL</div>
-        </md-card-header>
-        <img src="../assets/fwd8curvechart/TCHL.png" alt="Skyscraper">
-      </md-card>
-      <md-card md-with-hover id="visualElement">
-        <md-card-header>
-            <div class="md-title">TG</div>
+            <div class="md-title">중성지방</div>
         </md-card-header>
         <img src="../assets/fwd8curvechart/TG.png">
-      </md-card>
-      <md-card md-with-hover id="visualElement">
-        <md-card-header>
-            <div class="md-title">WEIGHT</div>
-        </md-card-header>
-        <img src="../assets/fwd8curvechart/WEIGHT.png">
       </md-card>
     </div>
     <br>
     <h2 align="left">- 데이터 검색</h2>
-    <md-table v-model="data" md-sort="날짜" md-sort-order="asc" >
-      <!-- <md-table-toolbar>
-        <md-field md-clearable class="md-toolbar-section-end">
-          <md-input placeholder="Search by name..." v-model="search" @input="searchOnTable" />
-        </md-field>
-      </md-table-toolbar> -->
-
-      <md-table-row slot="md-table-row" slot-scope="{ item }">
-        <md-table-cell md-label="날짜" md-sort-by="id">{{ item.날짜 }}</md-table-cell>
-        <md-table-cell md-label="고혈압" md-sort-by="name">{{ item.고혈압 }}</md-table-cell>
-        <md-table-cell md-label="당뇨" md-sort-by="email">{{ item.당뇨 }}</md-table-cell>
-        <md-table-cell md-label="당뇨병가족력" md-sort-by="gender">{{ item.당뇨병가족력 }}</md-table-cell>
-        <md-table-cell md-label="암과거력" md-sort-by="title">{{ item.암과거력 }}</md-table-cell>
-        <md-table-cell md-label="약복용력" md-sort-by="a">{{ item.약복용력 }}</md-table-cell>
-      </md-table-row>
-    </md-table>
-    <!-- <v-data-table
-      :headers="headers"
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-pagination :total-rows="totalRows" :per-page="100" v-model="currentPage" class="my-0" />
+      </b-col>
+    </b-row>
+    <b-table
+      bordered
+      striped
+      hover
       :items="data"
-      hide-actions
-      :dark="true"
-      class="evaluation-1"
-    >
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.바코드 }}</td>
-        <td class="text-xs-right">{{ props.item.날짜 }}</td>
-        <td class="text-xs-right">{{ props.item.고혈압 }}</td>
-        <td class="text-xs-right">{{ props.item.당뇨 }}</td>
-        <td class="text-xs-right">{{ props.item.당뇨병가족력 }}</td>
-        <td class="text-xs-right">{{ props.item.암과거력 }}</td>
-        <td class="text-xs-right">{{ props.item.약복용력 }}</td>
-        <td class="text-xs-right">{{ props.item.여성호르몬제제_또는_경구피임제__복용한적_또는_현재복용중_여부 }}</td>
-        <td class="text-xs-right">{{ props.item.내부_장기_맹장_제외__수술력 }}</td>
-        <td class="text-xs-right">{{ props.item.음주량 }}</td>
-        <td class="text-xs-right">{{ props.item.흡연 }}</td>
-        <td class="text-xs-right">{{ props.item.HBsAg }}</td>
-        <td class="text-xs-right">{{ props.item.Anti_HIV }}</td>
-        <td class="text-xs-right">{{ props.item.Anti_HCV }}</td>
-      </template>
-    </v-data-table> -->
+      :fields="fields"
+      :per-page="100"
+      :current-page = "currentPage">
+    </b-table>
   </div>
 </template>
 
@@ -122,32 +96,14 @@ export default {
   data () {
     return {
       microPosts: [],
-      headers: [
-        {
-          text: '바코드',
-          align: 'left',
-          sortable: false,
-          value: '바코드'
-        },
-        {text: '날짜', value: '날짜'},
-        { text: '고혈압', value: '고혈압' },
-        { text: '당뇨', value: '당뇨' },
-        { text: '당뇨병 가족력', value: '당뇨병가족력' },
-        { text: '암과거력', value: '암과거력' },
-        { text: '약복용력', value: '약복용력' },
-        { text: '여성호르몬제제(또는 경구피임제) 복용한적 또는 현재복용중 여부', value: '여성호르몬제제_또는_경구피임제__복용한적_또는_현재복용중_여부' },
-        { text: '내부 장기(맹장 제외) 수술력', value: '내부_장기_맹장_제외__수술력' },
-        { text: '음주량', value: '음주량' },
-        { text: '흡연', value: '흡연' },
-        { text: 'HBsAg', value: 'HBsAg' },
-        { text: 'Anti-HIV', value: 'Anti_HIV' },
-        { text: 'Anti_HCV', value: 'Anti_HCV' }
-      ],
       data: [],
       summary: [],
       supercontrol: [],
       na: [],
-      dang: []
+      dang: [],
+      fields: ['바코드', '날짜', '음주량', '흡연', 'HBsAg', 'Anti_HCV', 'WBC', 'RBC', 'HB', 'HCT'],
+      currentPage: 1,
+      totalRows: 1
       // errors: []
     }
   },
@@ -157,6 +113,7 @@ export default {
         .then(res => {
           this.data = res.data
           console.log(this.data)
+          this.totalRows = res.data.length
         })
         .catch(e => {
           this.errors.push(e)
@@ -201,7 +158,7 @@ export default {
     vertical-align: top;
   }
   #visualElement{
-    width: 430px;
+    width: 400px;
   }
   .md-field {
     max-width: 300px;

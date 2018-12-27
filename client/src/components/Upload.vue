@@ -1,18 +1,31 @@
 <template>
   <div class="container">
     <!--UPLOAD-->
-    <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <h1>데이터 입력하기</h1>
-      <div class="dropbox">
-        <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*, .csv, .xls, .xlsx" class="input-file">
-        <p class="status" v-if="isInitial">
-          입력할 데이터 파일을 선택해주세요
-        </p>
-        <p class="status" v-if="isSaving">
-          Uploading {{ fileCount }} files...
-        </p>
-      </div>
-    </form>
+    <h1>데이터 입력하기</h1>
+    <b-form-file
+    type="file"
+    enctype="multipart/form-data"
+    novalidate v-if="isInitial || isSaving"
+    accept="image/*, .csv, .xls, .xlsx"
+    placeholder="입력할 엑셀 파일을 선택해주세요"
+    :name="uploadFieldName"
+    :disabled="isSaving"
+    @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
+    >
+      <!-- <input
+      type="file"
+      :name="uploadFieldName"
+      :disabled="isSaving"
+      @change="filesChange($event.target.name, $event.target.files);
+      fileCount = $event.target.files.length"
+      class="input-file">
+      <p class="status" v-if="isInitial">
+        입력할 데이터 파일을 선택해주세요
+      </p> -->
+      <p class="status" v-if="isSaving">
+        Uploading {{ fileCount }} files...
+      </p>
+    </b-form-file>
     <!--SUCESS-->
     <div v-if="isSuccess">
       <h2> Uploaded {{ uploadedFiles.length }} files successfully.</h2>
@@ -77,6 +90,9 @@ export default {
       upload2(formData)
         .then((x) => {
           this.uploadedFiles = [].concat(x)
+          // setTimeout(function () {
+          //   this.currentStatus = STATUS_SUCCESS
+          // }, 200)
           this.currentStatus = STATUS_SUCCESS
         })
         .catch(err => {

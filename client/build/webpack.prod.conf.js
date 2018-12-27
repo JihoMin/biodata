@@ -12,13 +12,17 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
-
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
-      usePostCSS: true
+      usePostCSS: true,
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader'
+      ]
     })
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
